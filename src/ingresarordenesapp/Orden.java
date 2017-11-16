@@ -13,19 +13,20 @@ import java.util.Scanner;
  * @author prof_uide_e
  */
 public class Orden {
+
     private String ordenID;
     private Producto[] producto;
     private double total;
     private String fecha;
     private boolean enviado;
- 
+
     public Orden() {
         producto = new Producto[10];
         for (int i = 0; i <= producto.length - 1; i++) {
             producto[i] = new Producto();
         }
     }
-    
+
     public Orden(String ordenID, double total, String fecha, boolean enviado) {
         this.ordenID = ordenID;
         this.total = total;
@@ -83,13 +84,23 @@ public class Orden {
 
         recorrer:
         for (int i = 0; i <= producto.length - 1; i++) {
-            //System.out.println("-" + producto[i].getProductoID());
+            //System.out.println("Debug-VerProductos: " + i);
+
             if (producto[i].getProductoID().equals("")) {
-                System.out.println("Ingresar ID");
+                System.out.println("Ingresar ID:");
                 producto[i].setProductoID(entrada.next());
                 
+                System.out.println("Ingresar Nombre:");
+                producto[i].setNombre(entrada.next());
                 
+                System.out.println("Ingresar Descripcion:");
+                producto[i].setDescripcion(entrada.next());
                 
+                System.out.println("Ingresar Precio:");
+                producto[i].setPrecio(entrada.nextDouble());
+                
+                System.out.println("Ingresar Cantidad:");
+                producto[i].setCantidad(entrada.nextInt());
                 
                 break recorrer;
             }
@@ -99,12 +110,15 @@ public class Orden {
 
     public void verProducto() {
         for (int i = 0; i <= producto.length - 1; i++) {
+            //System.out.println("Debug-VerProductos: " + i);
             if (!producto[i].getProductoID().equals("")) {
                 System.out.println("ID: " + producto[i].getProductoID());
+                System.out.println("Nombre: " + producto[i].getNombre());
+                System.out.println("Descripcion: " + producto[i].getDescripcion());
+                System.out.println("Precio: " + producto[i].getPrecio());
+                System.out.println("Cantidad: " + producto[i].getCantidad());
             }
         }
     }
-    
-    
-    
+
 }

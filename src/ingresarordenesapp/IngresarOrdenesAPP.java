@@ -17,7 +17,7 @@ public class IngresarOrdenesAPP {
     public static void main(String[] args) {
         // TODO code application logic here
          Orden orden = new Orden();
-         Menu menu = new Menu("Producto", orden);
+         Menu menu = new Menu(Menu.PRODUCTO, orden);
     }
     
 }

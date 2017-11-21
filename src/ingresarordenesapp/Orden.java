@@ -89,19 +89,19 @@ public class Orden {
             if (producto[i].getProductoID().equals("")) {
                 System.out.println("Ingresar ID:");
                 producto[i].setProductoID(entrada.next());
-                
+
                 System.out.println("Ingresar Nombre:");
                 producto[i].setNombre(entrada.next());
-                
+
                 System.out.println("Ingresar Descripcion:");
                 producto[i].setDescripcion(entrada.next());
-                
+
                 System.out.println("Ingresar Precio:");
                 producto[i].setPrecio(entrada.nextDouble());
-                
+
                 System.out.println("Ingresar Cantidad:");
                 producto[i].setCantidad(entrada.nextInt());
-                
+
                 break recorrer;
             }
         }
@@ -121,4 +121,30 @@ public class Orden {
         }
     }
 
+    public void eliminarProducto(String productoId) {
+        boolean productoExiste = false;
+        recorrer:
+        for (int i = 0; i <= producto.length - 1; i++) {
+            if (producto[i].getProductoID().equals(productoId)) {
+                productoExiste = true;
+                producto[i].setProductoID("");
+                producto[i].setCantidad(0);
+                producto[i].setDescripcion("");
+                producto[i].setNombre("");
+                producto[i].setPrecio(0.00);
+                break recorrer;
+            }
+        }
+        if(productoExiste == true){
+            System.out.println("Producto Eliminado: "+productoId);
+        }else{
+            System.out.println("Producto no existe: "+productoId);
+        }
+    }
+    
+    public static String obtenerStringPorTeclado() {
+        Scanner entrada = new Scanner(System.in);
+        return entrada.next();
+
+    }
 }

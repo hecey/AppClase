@@ -12,7 +12,11 @@ import java.util.Scanner;
  * @author prof_uide_e
  */
 public class Menu {
-    Orden orden= new Orden();
+
+    public final static String PRODUCTO="Producto";
+
+    Orden orden = new Orden();
+
     Menu(String menuTipo, Orden orden) {
         this.orden = orden;
         crearMenu(menuTipo);
@@ -20,7 +24,7 @@ public class Menu {
 
     private void crearMenu(String menuTipo) {
         switch (menuTipo) {
-            case "Producto":
+            case PRODUCTO:
                 presentarMenuProductos();
                 validarOpcionProductos(obtenerOpcion());
                 break;
@@ -38,7 +42,7 @@ public class Menu {
         System.out.println("4.- Modificar Productos");
         System.out.println("5.- Salir");
     }
-    
+
     private static int obtenerOpcion() {
         Scanner entrada = new Scanner(System.in);
         return entrada.nextInt();
@@ -57,6 +61,12 @@ public class Menu {
                 orden.verProducto();
                 crearMenu(menuTipo);
                 break;
+            case 3:
+                System.out.println("Eliminar Producto(s)");
+                orden.eliminarProducto(Orden.obtenerStringPorTeclado());
+                crearMenu(menuTipo);
+                break;
+
             case 5:
                 System.out.println("Terminado");
                 break;
@@ -68,4 +78,5 @@ public class Menu {
     }
 
     
+
 }

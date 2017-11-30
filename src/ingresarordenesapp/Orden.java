@@ -108,6 +108,29 @@ public class Orden {
 
     }
 
+    public void ingresarProducto(int i) {
+        Scanner entrada = new Scanner(System.in);
+
+        System.out.println("Ingresar ID:");
+
+        //validarEntrada(entrada.next(),producto[i].getProductoID())            
+        producto[i]
+            .setProductoID(validarEntrada(
+                entrada.next(), producto[i].getProductoID()));
+
+        System.out.println("Ingresar Nombre:");
+        producto[i].setNombre(entrada.next());
+
+        System.out.println("Ingresar Descripcion:");
+        producto[i].setDescripcion(entrada.next());
+
+        System.out.println("Ingresar Precio:");
+        producto[i].setPrecio(entrada.nextDouble());
+
+        System.out.println("Ingresar Cantidad:");
+        producto[i].setCantidad(entrada.nextInt());
+    }
+
     public void verProducto() {
         for (int i = 0; i <= producto.length - 1; i++) {
             //System.out.println("Debug-VerProductos: " + i);
@@ -135,16 +158,45 @@ public class Orden {
                 break recorrer;
             }
         }
-        if(productoExiste == true){
-            System.out.println("Producto Eliminado: "+productoId);
-        }else{
-            System.out.println("Producto no existe: "+productoId);
+        if (productoExiste == true) {
+            System.out.println("Producto Eliminado: " + productoId);
+        } else {
+            System.out.println("Producto no existe: " + productoId);
         }
     }
-    
+
     public static String obtenerStringPorTeclado() {
         Scanner entrada = new Scanner(System.in);
         return entrada.next();
+
+    }
+
+    void modificarProducto(String productoId) {
+        boolean productoExiste = false;
+        recorrer:
+        for (int i = 0; i <= producto.length - 1; i++) {
+            if (producto[i].getProductoID().equals(productoId)) {
+                productoExiste = true;
+                //Codigo para modificar el producto
+                ingresarProducto(i);
+                break recorrer;
+            }
+        }
+        //Evaluo si existe el producto con la variable productoExiste
+        if (productoExiste == true) {
+            System.out.println("Producto Modificado: " + productoId);
+        } else {
+            System.out.println("Producto no existe: " + productoId);
+        }
+    }
+
+    private String validarEntrada(String entradaPorTeclado, String entradaExistente) {
+
+        if (entradaPorTeclado.trim().isEmpty()) {
+            return entradaExistente;
+        } else {
+            return entradaPorTeclado;
+        }
 
     }
 }

@@ -13,7 +13,7 @@ import java.util.Scanner;
  */
 public class Menu {
 
-    public final static String PRODUCTO="Producto";
+    public final static String PRODUCTO = "Producto";
 
     Orden orden = new Orden();
 
@@ -66,6 +66,11 @@ public class Menu {
                 orden.eliminarProducto(Orden.obtenerStringPorTeclado());
                 crearMenu(menuTipo);
                 break;
+            case 4:
+                System.out.println("Modificar Producto(s)");
+                orden.modificarProducto(Orden.obtenerStringPorTeclado());
+                crearMenu(menuTipo);
+                break;
 
             case 5:
                 System.out.println("Terminado");
@@ -76,7 +81,5 @@ public class Menu {
                 break;
         }
     }
-
-    
 
 }

@@ -109,26 +109,24 @@ public class Orden {
     }
 
     public void ingresarProducto(int i) {
-        Scanner entrada = new Scanner(System.in);
 
         System.out.println("Ingresar ID:");
-
-        //validarEntrada(entrada.next(),producto[i].getProductoID())            
-        producto[i]
-            .setProductoID(validarEntrada(
-                entrada.next(), producto[i].getProductoID()));
+        producto[i].setProductoID(validarEntrada(
+                obtenerPorTeclado(String.class), producto[i].getProductoID()));
 
         System.out.println("Ingresar Nombre:");
-        producto[i].setNombre(entrada.next());
+        producto[i].setNombre(validarEntrada(obtenerPorTeclado(String.class), producto[i].getNombre()));
 
         System.out.println("Ingresar Descripcion:");
-        producto[i].setDescripcion(entrada.next());
+        producto[i].setDescripcion(validarEntrada(obtenerPorTeclado(String.class), producto[i].getDescripcion()));
 
         System.out.println("Ingresar Precio:");
-        producto[i].setPrecio(entrada.nextDouble());
+        producto[i].setPrecio(
+                validarEntrada(obtenerPorTeclado(Double.class), producto[i].getPrecio()));
 
         System.out.println("Ingresar Cantidad:");
-        producto[i].setCantidad(entrada.nextInt());
+        producto[i].setCantidad(
+                validarEntrada(obtenerPorTeclado(Integer.class), producto[i].getCantidad()));
     }
 
     public void verProducto() {
@@ -165,12 +163,6 @@ public class Orden {
         }
     }
 
-    public static String obtenerStringPorTeclado() {
-        Scanner entrada = new Scanner(System.in);
-        return entrada.next();
-
-    }
-
     void modificarProducto(String productoId) {
         boolean productoExiste = false;
         recorrer:
@@ -190,13 +182,84 @@ public class Orden {
         }
     }
 
-    private String validarEntrada(String entradaPorTeclado, String entradaExistente) {
-
-        if (entradaPorTeclado.trim().isEmpty()) {
-            return entradaExistente;
-        } else {
-            return entradaPorTeclado;
-        }
+    //Remove
+    public static String obtenerStringPorTeclado() {
+        Scanner entrada = new Scanner(System.in);
+        return entrada.next();
 
     }
+
+    private <T extends Object> T validarEntrada(T entradaPorTeclado, T entradaExistente) {
+        if (entradaPorTeclado instanceof String) {
+            if (((String) entradaPorTeclado).isEmpty()) {
+                return entradaExistente;
+            }
+        }
+        if (entradaPorTeclado instanceof Integer) {
+            if ((Integer) entradaPorTeclado == 0) {
+                return entradaExistente;
+            }
+        }
+
+        if (entradaPorTeclado instanceof Double) {
+            if ((Double) entradaPorTeclado == 0.0) {
+                return entradaExistente;
+            }
+        }
+
+        return entradaPorTeclado;
+
+    }
+
+    public <T> T obtenerPorTeclado(Class<T> clazz) {
+        Scanner entrada = new Scanner(System.in);
+        try {
+            if (clazz == Integer.class) {  return clazz.cast(entrada.nextInt());
+            }
+            if (clazz == Double.class) {   return clazz.cast(entrada.nextDouble());
+            }
+            if (clazz == String.class) {  return clazz.cast(entrada.nextLine());
+            }
+        } catch (Exception e) {
+            System.out.println("Intenta de nuevo....");
+            obtenerPorTeclado(clazz);
+        }
+        return null;
+    }
+
+    //
+//        try {
+//            if (c == Integer.class) {
+//                return c.cast(entrada.nextInt());
+//            }
+//            if (c == String.class) // the next cast to String is safe
+//            {
+//                return c.cast(entrada.next());
+//            }
+//            if (c == Double.class) // the next cast to Double is safe
+//            {
+//                return c.cast(entrada.nextDouble());
+//            }
+//        } catch (Exception e) {
+//            System.out.println("Intenta de nuevo....");
+//        }
+//        return obtenerPorTeclado(c);
+//    }
+//        private static <T> T validarEntrada(T entradaPorTeclado, T entradaExistente) {
+//
+//        // String valor = "" + entradaPorTeclado;
+//        if (entradaPorTeclado instanceof String) {
+//            if (((String) entradaPorTeclado).isEmpty()) {
+//                return entradaExistente;
+//            }
+//
+//        }
+//        if (entradaPorTeclado instanceof Integer) {
+//            if (((Integer) entradaPorTeclado).equals(0)) {
+//                return entradaExistente;
+//            }
+//
+//        }
+//
+//        return entradaPorTeclado;
 }
